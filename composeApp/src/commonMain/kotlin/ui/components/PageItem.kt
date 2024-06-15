@@ -19,36 +19,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import ktmulproject.composeapp.generated.resources.Qt
+import ktmulproject.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.Font
 import ui.types.PageModel
 
 @Composable
-fun PageItem(d:PageModel) {
+fun PageItem(d: PageModel) {
+    val fontAwesome = FontFamily(Font(Res.font.Qt))
     Card(
         modifier = Modifier.fillMaxSize(),
         colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 10.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-           /* Row {
-               *//* Text(d.date.substring(d.date.length-2), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.padding(horizontal = 3.dp))
-                Text("/${d.date.substring(0,d.date.length-3)}")*//*
-                val str=d.date.split('.')
-                Text(str.last(), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.padding(horizontal = 3.dp))
-                Text("/${str[0]}.${str[1]}")
-            }*/
-            val str=d.date.split('.')
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            val str = d.date.split('.')
             Text(
                 buildAnnotatedString {
-                    withStyle(SpanStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold)){
+                    withStyle(SpanStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold)) {
                         append(str.last())
                     }
                     append(" / ${str.first()}.${str[1]}")
@@ -64,10 +63,18 @@ fun PageItem(d:PageModel) {
             alignment = Alignment.TopCenter
         )
         Text(
-            d.content,
+            d.content.split(',').first(),
             fontSize = 30.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-                .padding(horizontal = 8.dp, vertical = 36.dp)
+            modifier = Modifier.align(Alignment.Start)
+                .padding(horizontal = 8.dp, vertical = 18.dp),
+            fontFamily = fontAwesome
+        )
+        Text(
+            d.content.split(',').last(),
+            fontSize = 30.sp,
+            modifier = Modifier.align(Alignment.End)
+                .padding(horizontal = 8.dp, vertical = 18.dp),
+            fontFamily = fontAwesome
         )
         Text(d.author, modifier = Modifier.padding(horizontal = 8.dp).align(Alignment.End))
     }

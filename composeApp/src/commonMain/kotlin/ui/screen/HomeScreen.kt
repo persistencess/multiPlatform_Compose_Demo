@@ -32,7 +32,7 @@ fun HomeScreen() {
         PageItem(
             PageModel(
                 "http://netease.store/upload/2022-08-18/1660811651503.jpg",
-                "今日一句话",
+                "业精于勤荒于嬉,行成于思毁于随",
                 "——solitude",
                 "2024.06.15",
                 "星期六"

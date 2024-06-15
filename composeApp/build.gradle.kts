@@ -12,7 +12,7 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
+  /* @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
         browser {
@@ -27,17 +27,17 @@ kotlin {
             }
         }
         binaries.executable()
-    }
-    
+    }*/
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -48,13 +48,17 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.ktor:ktor-client-core:2.2.0")
+            implementation("io.ktor:ktor-client-cio:2.2.0")
+            // 加载网络图片
+//            implementation("media.kamel:kamel-image:0.9.5")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -63,12 +67,17 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            // 加载网络图片
+            // 字体配置
+            implementation(compose.components.resources)
             implementation("media.kamel:kamel-image:0.9.5")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
+       /* iosMain.dependencies {
+            // 加载网络图片
+            implementation("media.kamel:kamel-image:0.9.5")
+        }*/
     }
 }
 
