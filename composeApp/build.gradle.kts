@@ -63,6 +63,8 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            // 加载网络图片
+            implementation("media.kamel:kamel-image:0.9.5")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
