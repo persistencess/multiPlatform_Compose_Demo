@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import ui.components.PageItem
 import ui.services.Device
 import ui.types.PageModel
+import viewmodel.HomeViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen() {
+    val homeViewModel = HomeViewModel()
     val page = rememberPagerState(initialPage = 0, pageCount = { 10 })
     HorizontalPager(
         state = page,
