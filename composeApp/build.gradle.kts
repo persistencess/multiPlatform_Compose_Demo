@@ -9,6 +9,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+//     json注解
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 kotlin {
@@ -56,8 +58,8 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             // 网络请求驱动
-            implementation("io.ktor:ktor-client-android:2.3.1")
-            implementation("io.ktor:ktor-client-cio:2.2.0")
+            implementation(libs.ktorClientAndroid)
+            implementation(libs.ktorClientCio)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -69,18 +71,21 @@ kotlin {
             // 字体配置
             implementation(compose.components.resources)
             // 加载网络图片
-            implementation("media.kamel:kamel-image:0.9.5")
+            implementation(libs.kamelImage)
             // 网络请求
-            implementation("io.ktor:ktor-client-core:2.3.1")
+            implementation(libs.ktorCore)
+            implementation(libs.ktorContentNegotiation)
+            implementation(libs.ktorSerialization)
+            implementation(libs.ktorClientLogging)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             // 网络请求驱动
-            implementation("io.ktor:ktor-client-android:2.3.1")
+            implementation(libs.ktorClientCio)
         }
         iosMain.dependencies {
             // 网络请求驱动
-            implementation("io.ktor:ktor-client-darwin:2.3.1")
+            implementation(libs.ktorClientDarwin)
         }
     }
 }
