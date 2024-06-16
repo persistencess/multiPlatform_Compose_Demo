@@ -45,6 +45,15 @@ fun PageItem(d: PageModel) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             val str = d.date.split('.')
+            /* Row {
+               *//* Text(d.date.substring(d.date.length-2), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.padding(horizontal = 3.dp))
+                Text("/${d.date.substring(0,d.date.length-3)}")*//*
+                val str=d.date.split('.')
+                Text(str.last(), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.padding(horizontal = 3.dp))
+                Text("/${str[0]}.${str[1]}")
+            }*/
             Text(
                 buildAnnotatedString {
                     withStyle(SpanStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold)) {

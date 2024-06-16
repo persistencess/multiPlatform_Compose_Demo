@@ -55,10 +55,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("io.ktor:ktor-client-core:2.2.0")
+            // 网络请求驱动
+            implementation("io.ktor:ktor-client-android:2.3.1")
             implementation("io.ktor:ktor-client-cio:2.2.0")
-            // 加载网络图片
-//            implementation("media.kamel:kamel-image:0.9.5")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -69,15 +68,20 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             // 字体配置
             implementation(compose.components.resources)
+            // 加载网络图片
             implementation("media.kamel:kamel-image:0.9.5")
+            // 网络请求
+            implementation("io.ktor:ktor-client-core:2.3.1")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            // 网络请求驱动
+            implementation("io.ktor:ktor-client-android:2.3.1")
         }
-       /* iosMain.dependencies {
-            // 加载网络图片
-            implementation("media.kamel:kamel-image:0.9.5")
-        }*/
+        iosMain.dependencies {
+            // 网络请求驱动
+            implementation("io.ktor:ktor-client-darwin:2.3.1")
+        }
     }
 }
 
