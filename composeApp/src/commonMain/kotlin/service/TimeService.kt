@@ -1,13 +1,13 @@
 package service
 
-import entity.TimeEntityResp
+import entity.TimeEntity
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import network.Network
 
 interface TimeService {
-    suspend fun getTime(): TimeEntityResp
+    suspend fun getTime(): TimeEntity
 
     companion object {
         val instance = TimeServiceImpl(Network.client)
@@ -15,6 +15,6 @@ interface TimeService {
 }
 
 class TimeServiceImpl(private val http: HttpClient) : TimeService {
-    override suspend fun getTime(): TimeEntityResp =
-        http.get("/api/getTime").body<TimeEntityResp>()
+    override suspend fun getTime(): TimeEntity =
+        http.get("/api/getTime").body<TimeEntity>()
 }

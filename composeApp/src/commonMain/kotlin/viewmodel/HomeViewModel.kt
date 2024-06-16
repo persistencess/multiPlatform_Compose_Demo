@@ -11,7 +11,7 @@ class HomeViewModel {
     init {
         mainScope.launch {
             val time = timeService.getTime()
-            println(time.result)
+            println(time)
         }
     }
 }
