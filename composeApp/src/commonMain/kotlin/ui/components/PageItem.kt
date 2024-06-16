@@ -22,6 +22,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
@@ -44,7 +46,7 @@ fun PageItem(d: PageModel) {
             modifier = Modifier.fillMaxWidth().padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val str = d.date.split('.')
+            val str = d.date.split('-')
             /* Row {
                *//* Text(d.date.substring(d.date.length-2), fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
@@ -72,19 +74,20 @@ fun PageItem(d: PageModel) {
             alignment = Alignment.TopCenter
         )
         Text(
-            d.content.split(',').first(),
+            d.content,
             fontSize = 30.sp,
             modifier = Modifier.align(Alignment.Start)
                 .padding(horizontal = 8.dp, vertical = 18.dp),
+            lineHeight = TextUnit(1f, TextUnitType.Em),
             fontFamily = fontAwesome
         )
-        Text(
-            d.content.split(',').last(),
-            fontSize = 30.sp,
-            modifier = Modifier.align(Alignment.End)
-                .padding(horizontal = 8.dp, vertical = 18.dp),
-            fontFamily = fontAwesome
-        )
+        /* Text(
+             d.content.split(',').last(),
+             fontSize = 30.sp,
+             modifier = Modifier.align(Alignment.End)
+                 .padding(horizontal = 8.dp, vertical = 18.dp),
+             fontFamily = fontAwesome
+         )*/
         Text(d.author, modifier = Modifier.padding(horizontal = 8.dp).align(Alignment.End))
     }
 }

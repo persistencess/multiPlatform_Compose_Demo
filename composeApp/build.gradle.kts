@@ -53,6 +53,7 @@ kotlin {
 
     sourceSets {
         val desktopMain by getting
+        val voyagerVersion = "1.1.0-beta02"
 
         androidMain.dependencies {
             implementation(compose.preview)
@@ -77,6 +78,13 @@ kotlin {
             implementation(libs.ktorContentNegotiation)
             implementation(libs.ktorSerialization)
             implementation(libs.ktorClientLogging)
+
+            // navigator
+            implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+            // Screen Model
+            implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
+            // transition
+            implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
