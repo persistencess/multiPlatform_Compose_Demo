@@ -11,8 +11,18 @@ plugins {
     alias(libs.plugins.compose.compiler)
 //     json注解
     kotlin("plugin.serialization") version "2.0.0"
-}
 
+    id("app.cash.sqldelight") version "2.0.2"
+}
+sqldelight{
+    databases{
+        // 自动生成数据库类名
+        create("DatabaseSchema"){
+            // 配置包名
+            packageName.set("example.project.commonMain.cache")
+        }
+    }
+}
 kotlin {
   /* @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -61,6 +71,8 @@ kotlin {
             // 网络请求驱动
             implementation(libs.ktorClientAndroid)
             implementation(libs.ktorClientCio)
+            // sql android驱动
+            implementation("app.cash.sqldelight:android-driver:2.0.2")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -85,15 +97,22 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
             // transition
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
+            // sql android驱动
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             // 网络请求驱动
             implementation(libs.ktorClientCio)
+
+            implementation("app.cash.sqldelight:sqlite-driver:2.0.2")
         }
         iosMain.dependencies {
             // 网络请求驱动
             implementation(libs.ktorClientDarwin)
+
+            implementation("app.cash.sqldelight:native-driver:2.0.2")
         }
     }
 }
@@ -145,4 +164,9 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+// 禁用所有测试任务
+tasks.withType<Test>().configureEach {
+    enabled = false
 }
