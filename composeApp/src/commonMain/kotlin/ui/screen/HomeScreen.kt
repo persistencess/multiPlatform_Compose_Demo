@@ -34,8 +34,6 @@ object HomeScreen : Screen {
 //        val homeViewModel = HomeViewModel()
         val homeViewModel = rememberScreenModel { HomeViewModel() }
         val uiState by homeViewModel.uiState.collectAsState()
-        val page = rememberPagerState(initialPage = 0, pageCount = { 10 })
-
         when (uiState) {
             is HomeUIState.Loading -> Box(
                 contentAlignment = Alignment.Center,
@@ -53,34 +51,41 @@ object HomeScreen : Screen {
                 })
             }
 
-            is HomeUIState.Success -> HorizontalPager(
-                state = page,
-                pageSpacing = 16.dp,
-                contentPadding = PaddingValues(
-                    top = 32.dp,
-                    end = 32.dp,
-                    start = 32.dp,
-                    // 使用底部高度
-                    bottom = Device.getBottomSafeAreaHeight().dp + 32.dp
-                )
-            ) {
-                val c = uiState as HomeUIState.Success
-                PageItem(
-                    /*PageModel(
-                        "http://netease.store/upload/2022-08-18/1660811651503.jpg",
-                        "业精于勤荒于嬉,行成于思毁于随",
-                        "——solitude",
-                        "2024.06.15",
-                        "星期六"
-                    )*/
-                    PageModel(
-                        c.imgUrl,
-                        c.content,
-                        c.author,
-                        c.date,
-                        c.week
+            is HomeUIState.Success -> {
+                val words = (uiState as HomeUIState.Success).words
+                val page =
+                    rememberPagerState(initialPage = words.size - 1, pageCount = { words.size })
+                HorizontalPager(
+                    state = page,
+                    pageSpacing = 16.dp,
+                    contentPadding = PaddingValues(
+                        top = 32.dp,
+                        end = 32.dp,
+                        start = 32.dp,
+                        // 使用底部高度
+                        bottom = Device.getBottomSafeAreaHeight().dp + 32.dp
                     )
-                )
+                ) {
+                    val c = words[it]
+                    println(c)
+                    println(words)
+                    PageItem(
+                        /*PageModel(
+                            "http://netease.store/upload/2022-08-18/1660811651503.jpg",
+                            "业精于勤荒于嬉,行成于思毁于随",
+                            "——solitude",
+                            "20240-06-15",
+                            "星期六"
+                        )*/
+                        PageModel(
+                            c.imageUrl,
+                            c.content,
+                            c.from,
+                            c.date,
+                            c.weekday
+                        )
+                    )
+                }
             }
         }
 
